@@ -164,8 +164,11 @@
         // Function to load customCSS from localStorage and set it as background
         function loadCustomCSS() {
             const customCSS = localStorage.getItem('customCSS');
+
             if (customCSS) {
                 document.body.style.backgroundImage = customCSS;
+            } else {
+                document.body.style.backgroundImage = "./assets/wallpaper/Bluesdark.png";
             }
         }
 
