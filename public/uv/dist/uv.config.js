@@ -1,12 +1,12 @@
 /*global Ultraviolet*/
 self.__uv$config = {
     prefix: '/uv/service/',
-    bare: '/bare/',
+    bare: 'https://valid.zirc.lol/bare/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
-    handler: '/uv.handler.js',
-    client: '/uv.client.js',
-    bundle: '/uv.bundle.js',
-    config: '/uv.config.js',
-    sw: '/uv.sw.js',
+    handler: '/uv/dist/uv.handler.js',
+    client: '/uv/dist/uv.client.js',
+    bundle: '/uv/dist/uv.bundle.js',
+    config: '/uv/dist/uv.config.js',
+    sw: '/uv/dist/uv.sw.js',
 };
