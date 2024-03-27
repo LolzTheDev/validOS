@@ -1,0 +1,73 @@
+body {
+    background-color: #000000;
+    text-decoration: none !important;
+}
+
+.pluh {
+    margin: 70px auto;
+    text-decoration: none;
+    text-align: center;
+}
+
+#geforce {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+#geforce1 {
+    margin: 0 auto;
+    border-radius: 50px;
+}
+
+#geforce2 {
+    color: white;
+    text-decoration: none !important;
+}
+
+#geforce2:visited {
+    color: white;
+    text-decoration: none !important;
+}
+
+#main {
+    padding: -4px;
+    border: none;
+    background: none;
+}
+
+#main1 {
+    border-radius: 50px;
+}
+
+#main2 {
+    color: white;
+    text-decoration: none !important;
+}
+
+#main2:visited {
+    color: white;
+    text-decoration: none !important;
+}
+
+#Back {
+    color: white;
+    text-decoration: none !important;
+}
+
+#backarrow {
+    margin: 16px;
+    margin-bottom: 0px;
+}
+
+#backarrowtxt {
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: inline-block;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+#quote {
+    text-align: center;
+}

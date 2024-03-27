@@ -1,0 +1,424 @@
+<head>
+  <title>Home</title>
+  <link rel="stylesheet preload" as="font" href="./assets/fonts/IntelOneMono-Regular.woff2" type="font/woff2"
+      crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="https://ssl.gstatic.com/classroom/favicon.png">
+  <style>
+      * {
+          font-family: 'IntelOneMono-Regular', monospace;
+      }
+
+      body {
+        background-color: #37383A;
+          color: white;
+      }
+
+::-webkit-scrollbar {
+width: 0px;
+background: transparent; /* make scrollbar transparent */
+}
+
+
+
+.tab {
+            width: 25%;
+            height: 40px;
+            background-color: #26272A;
+            color: #999999;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            border-radius: 10px;
+            transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+            box-shadow: 0 30px 40px rgba(0,0,0,20);
+            margin: 0 5px;
+            filter: blur(0.50px);
+        }
+
+        .active {
+            background-color: #48494A;
+            color: #ffffff;
+            filter: none;
+        }
+
+      .tabContainer {
+          background-color: #26272A;
+          width: 100%;
+          height: 40px;
+          margin: 0px;
+          left: 0px;
+          top: 0px;
+          display: flex;
+          flex-direction: row;
+          overflow: auto;
+          align-items: center;
+          transform: translateZ(0);
+          color:#000000;
+          border-radius: 10px;
+      }
+
+      .tabContentContainer {
+          margin-top: 10px;
+          width: 100%;
+          height: calc(100% - 58px);
+          position: fixed;
+          outline: none;
+          border: none;
+          left: 0px;
+      }
+
+      .tabContent {
+          width: 100%;
+          height: 100%;
+          outline: none;
+          border: none;
+          display: none;
+          color: white;
+          background-color: #26272A;
+          transition: opacity cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+      }
+
+      .tabButton {
+          padding: 5px !important;
+          text-align: center;
+          background-color: #26272A;
+          color: white;
+          padding: 0px !important;
+          padding-left: 20px;
+          padding-right: 20px;
+          border: none;
+          outline: none !important;
+          border-radius: 10%;
+          height: 30px !important;
+          width: 30px !important;
+          line-height: 30px;
+          text-align: center;
+          font-size: 20px;
+          margin-left: 5px;
+          margin-right: 0px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+            animation: 0.6s fadeandzoomin cubic-bezier(0.075, 0.82, 0.165, 1);
+            animation-iteration-count: 1;
+      }
+
+      .tabButton:hover {
+          background-color: #37383A;
+      }
+
+      .closeButton {
+          background-color: #37383A;
+          margin-left: auto;
+          margin-right: 10px;
+      }
+
+      #tabslist {
+          width: 100%;
+          height: 40px;
+      }
+
+      @keyframes fadeandzoomin {
+            0% {
+                transform: scale(25%);
+                opacity: 0.25;
+            }
+
+            100% {
+                transform: scale(100%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes roll {
+            0% {
+                rotate: 0deg;
+            }
+
+            99% {
+                rotate: 360deg;
+            }
+
+            100% {
+                rotate: 0deg;
+            }
+        }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="tabContainer">
+      <div class="tabButton" onclick="reload()" style="margin-right: 10px;">
+          <i data-lucide='rotate-cw' style="width: 16px"></i>
+      </div>
+      <div class="tabButton" onclick="goBack()">
+        <i data-lucide='arrow-left' style="width: 16px"></i>
+      </div>
+      <div class="tabButton" onclick="goForward()">
+        <i data-lucide='arrow-right' style="width: 16px"></i>
+      </div>
+
+      <section id="tabslist" class="tabContainer">
+      </section>
+      <div class="tabButton" onclick="newTab('./crazy.html')" style="margin-right: 10px;">
+          <i data-lucide='plus'></i>
+      </div>
+  </div>
+  <div class="tabContentContainer" id="tabContentContainer">
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+  <script>
+      var tabCode = document.getElementById("tabslist").innerHTML;
+      function b64dec(str) {
+          if (!str) return str;
+          str = decodeURIComponent(str.toString());
+          const b64tab = {
+              0: 52,
+              1: 53,
+              2: 54,
+              3: 55,
+              4: 56,
+              5: 57,
+              6: 58,
+              7: 59,
+              8: 60,
+              9: 61,
+              A: 0,
+              B: 1,
+              C: 2,
+              D: 3,
+              E: 4,
+              F: 5,
+              G: 6,
+              H: 7,
+              I: 8,
+              J: 9,
+              K: 10,
+              L: 11,
+              M: 12,
+              N: 13,
+              O: 14,
+              P: 15,
+              Q: 16,
+              R: 17,
+              S: 18,
+              T: 19,
+              U: 20,
+              V: 21,
+              W: 22,
+              X: 23,
+              Y: 24,
+              Z: 25,
+              a: 26,
+              b: 27,
+              c: 28,
+              d: 29,
+              e: 30,
+              f: 31,
+              g: 32,
+              h: 33,
+              i: 34,
+              j: 35,
+              k: 36,
+              l: 37,
+              m: 38,
+              n: 39,
+              o: 40,
+              p: 41,
+              q: 42,
+              r: 43,
+              s: 44,
+              t: 45,
+              u: 46,
+              v: 47,
+              w: 48,
+              x: 49,
+              y: 50,
+              z: 51,
+              '+': 62,
+              '/': 63,
+              '=': 64,
+          };
+          str = str.replace(/\s+/g, '');
+          str += '=='.slice(2 - (str.length & 3));
+          let u24;
+          let bin = '';
+          let r1;
+          let r2;
+
+          for (let i = 0; i < str.length;) {
+              u24 =
+                  (b64tab[str.charAt(i++)] << 18) |
+                  (b64tab[str.charAt(i++)] << 12) |
+                  ((r1 = b64tab[str.charAt(i++)]) << 6) |
+                  (r2 = b64tab[str.charAt(i++)]);
+              bin +=
+                  r1 === 64
+                      ? String.fromCharCode((u24 >> 16) & 255)
+                      : r2 === 64
+                          ? String.fromCharCode((u24 >> 16) & 255, (u24 >> 8) & 255)
+                          : String.fromCharCode(
+                              (u24 >> 16) & 255,
+                              (u24 >> 8) & 255,
+                              u24 & 255
+                          );
+          }
+          return bin;
+      }
+      function getActiveTab() {
+          return document.querySelector('.active');
+      }
+      function getActiveIFrame() {
+          return document.querySelector(`iframe[tab-id="${getActiveTab().getAttribute("tab-id")}"]`)
+      }
+      /*function goBack(){
+          console.log(getActiveIFrame().contentWindow.history)
+          getActiveIFrame().contentWindow.history.go(-1);
+      }
+      function goForwards(){
+          getActiveIFrame().contentWindow.history.go(1);
+      }*/
+      function reload() {
+          getActiveIFrame().contentWindow.location.reload();
+      }
+      function updateTabs() {
+          document.querySelectorAll('.tab').forEach((tabDiv) => {
+              tabDiv.addEventListener('click', () => {
+                  var old;
+                  document.querySelectorAll('.tab').forEach((div) => {
+                      if (div.classList.contains('active')) {
+                          old = div.getAttribute("tab-id");
+                          div.classList.remove('active');
+                      }
+                  });
+                  tabDiv.classList.add('active');
+                  document.querySelectorAll(".tabContent").forEach((div) => {
+                      if (div.getAttribute("tab-id") == tabDiv.getAttribute("tab-id")) {
+                          div.style.display = "block";
+                      } else {
+                          div.style.display = "none";
+                      }
+                  });
+              });
+          });
+
+          document.querySelectorAll('.closeButton').forEach((tabCloseButton) => {
+              tabCloseButton.addEventListener('click', () => {
+                  var id;
+                  document.querySelectorAll('.tab').forEach((tab) => {
+                      if (tab == tabCloseButton.parentElement) {
+                          document.querySelectorAll('.tabContent').forEach((ifr) => {
+                              if (ifr.getAttribute("tab-id") == tab.getAttribute("tab-id")) {
+                                  ifr.style.opacity = '0';
+                                  setTimeout(function () { ifr.remove() }, 400)
+                              }
+                              id = tab.getAttribute("tab-id");
+                              tab.style.width = '0px';
+                              tab.style.opacity = '0';
+                              tab.style.filter = 'blur(5px)';
+                              tab.style.padding = '0px';
+                              tab.style.border = 'none';
+                              setTimeout(function () { tab.remove() }, 400)
+                          });
+                      }
+                  })
+                  setTimeout(function () {
+                      var index = 1;
+                      document.querySelectorAll('.tab').forEach((tab) => {
+                          tab.setAttribute("tab-id", index.toString());
+                          ++index;
+                      });
+                      index = 1;
+                      document.querySelectorAll('.tabContent').forEach((tabCnt) => {
+                          tabCnt.setAttribute("tab-id", index.toString());
+                          ++index;
+                      });
+                      document.querySelectorAll('.tab').forEach((tab) => {
+                          if (tab.getAttribute("tab-id") == id - 1) {
+                              tab.click();
+                          } else if (tab.getAttribute("tab-id") == 1) {
+                              tab.click();
+                          }
+                      });
+                  }, 400)
+              })
+          })
+      }
+      function newTab(url) {
+          const tabID = document.getElementsByClassName("tab").length + 1;
+          const newTabDiv = document.createElement('div');
+          newTabDiv.className = 'tab';
+          newTabDiv.setAttribute('tab-id', tabID);
+          newTabDiv.innerHTML = `<span class="tabText">New Tab</span><div class="tabButton closeButton"><i data-lucide="x" style="width: 16px;" class="closeButton-icon"></i></div>`;
+          newTabDiv.style.width = '0';
+          newTabDiv.style.opacity = '0';
+          newTabDiv.style.filter = "blur(5px)";
+          const newTabContent = document.createElement('iframe');
+          newTabContent.className = 'tabContent';
+          newTabContent.setAttribute('tab-id', tabID);
+          newTabContent.src = url;
+          document.getElementById("tabslist").appendChild(newTabDiv);
+          document.getElementById("tabContentContainer").appendChild(newTabContent);
+          lucide.createIcons();
+          newTabDiv.offsetHeight;
+          newTabDiv.style.width = '25%';
+          newTabDiv.style.opacity = '1';
+          newTabDiv.style.filter = "";
+          updateTabs();
+          newTabDiv.click();
+      }
+      function copyLink() {
+          document.querySelectorAll('.tabContent').forEach((div) => {
+              if (div.style.display == "block") {
+                  navigator.clipboard.writeText(b64dec(div.contentWindow.location.href.split("service/")[1]));
+              }
+          });
+      }
+      function toggleInspectElement() {
+          if (document.getElementById("inspectButton").classList.contains("activeInspectButton")) {
+              eruda.destroy();
+              document.getElementById("inspectButton").classList.remove("activeInspectButton");
+          } else {
+              eruda.init({
+                  tool: ['console', 'elements']
+              });
+              eruda.show();
+              document.getElementById("inspectButton").classList.add("activeInspectButton");
+          }
+
+      }
+      updateTabs();
+      setInterval(function () {
+          document.querySelectorAll(".tab").forEach((tab) => {
+              document.querySelectorAll(".tabContent").forEach((content) => {
+                  content.contentWindow.document.querySelectorAll("a").forEach((anchor) => {
+                      anchor.target = "_self";
+                  });
+                  if (content.getAttribute("tab-id") == tab.getAttribute("tab-id")) {
+                      document.querySelectorAll(".tabText").forEach((tabTextObj) => {
+                          if (tabTextObj.parentElement == tab) {
+                              if (content.contentDocument.title == "") {
+                                  tabTextObj.innerHTML = "Just a sec...";
+                              } else {
+                                  tabTextObj.innerHTML = content.contentDocument.title;
+                              }
+                          }
+                      })
+                  }
+              })
+          });
+      }, 500)
+
+      function goBack() {
+        getActiveIFrame().contentWindow.history.back();
+      }
+
+      function goForward() {
+        getActiveIFrame().contentWindow.history.forward();
+      }
+      lucide.createIcons();
+      newTab('./crazy.html');
+  </script>

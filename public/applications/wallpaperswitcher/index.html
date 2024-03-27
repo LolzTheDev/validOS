@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wallpaper Switcher</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style type="text/tailwindcss">
+        button {
+            @apply p-4 pt-2 bg-gray-100 border-2 rounded-xl border-gray-500;
+        }
+
+        img {
+            @apply rounded-xl border-2 border-gray-500 w-fit h-fit;
+        }
+    </style>
+</head>
+<body>
+    <div id="wallpaper-switcher" class="p-4">
+        <h1 class="text-2xl font-semibold">Wallpaper Switcher</h1>
+        <p class="italic mb-4" id="status"></p>
+
+        <!-- Example wallpaper options -->
+        <div class="grid grid-cols-4 gap-4">
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/Blues.jpg\')')">Blues<br><img src="../../assets/wallpapers/Blues.jpg" width="269px" height="269px"> </button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/Bluesdark.png\')')">Blues Dark<br><img src="../../assets/wallpapers/Bluesdark.png" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/Reds.jpg\')')">Reds<br><img src="../../assets/wallpapers/Reds.jpg" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/RedsDark.png\')')">Reds Dark<br><img src="../../assets/wallpapers/RedsDark.png" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/Yellows.jpg\')')">Yellows<br><img src="../../assets/wallpapers/Yellows.jpg" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/YellowsDark.png\')')">Yellows Dark<br><img src="../../assets/wallpapers/YellowsDark.png" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/WindLight.jpg\')')">Wind Light<br><img src="../../assets/wallpapers/WindLight.jpg" width="269px" height="269px"></button>
+            <button class="text-center" role="button" onclick="switchWallpaper('url(\'../../assets/wallpapers/WindDark.jpg\')')">Wind Dark<br><img src="../../assets/wallpapers/WindDark.jpg" width="269px" height="269px"></button>
+        </div>
+        <!-- Add more wallpaper options as needed -->
+    </div>
+
+    <script>
+        // Function to switch wallpaper and update customCSS in localStorage
+        function switchWallpaper(imageLocation) {
+            // Save the new customCSS to localStorage
+            localStorage.setItem('customCSS', imageLocation);
+            const customCSS = localStorage.getItem('customCSS');
+
+            if (customCSS) {
+                parent.document.body.style.backgroundImage = customCSS;
+            }
+
+            document.getElementById("status").innerText = "Changes applied!"
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden; /* Add this line to hide horizontal overflow */
+    justify-content: center; /* Center the taskbar horizontally */
+    align-items: flex-end; /* Align the taskbar at the bottom */
+    display: flex;
+}
+
+.wb-full {
+    display: none;
+}
+
+.wb-title {
+    font-size: 110%;
+    font-family: "Inter", sans-serif;
+}
+
+#clock {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    top: 0;
+    right: 0;
+    backdrop-filter: blur(6px);
+    background-color: rgba(36, 36, 36, 0.7);
+    border: solid 2px rgba(78, 78, 78, 0.65);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+#taskbar {
+    backdrop-filter: blur(10px); /* Blur to bg */
+    background-color: rgba(36, 36, 36, 0.7); /* Slightly transparent black background */
+    border: solid 2px rgba(78, 78, 78, 0.65);
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: fit-content;
+    border-radius: 25px;
+    z-index: 998; /* Lower z-index than the splash screen */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.app-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* transition: background-color 0.3s, opacity 0.3s; /* Added opacity transition */
+    margin: 0 10px; /* Add margin for space between apps */
+    border: none;
+}
+
+.app-icon img {
+    margin-top: 5px;
+    max-width: 83.25%;
+    max-height: 83.25%;
+    object-fit: cover;
+}
+
+/* .app-icon:hover {
+    background-color: #555;
+    opacity: 1; /* Keep opacity at 100% on hover
+} */
+
+.app-name {
+    text-align: center;
+    margin-top: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    width: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#app4 {
+    border-radius: 50px;
+}
+
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #202124; /* White background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+#splash-screen img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+
+.unclickable {
+    pointer-events: none;
+}
+
+#clock {
+    color: white;
+    margin-left: auto;
+    font-size: 16px;
+    padding-right: 20px;
+}
+

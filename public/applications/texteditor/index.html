@@ -1,0 +1,40 @@
+<div>
+    <!-- import tailwind -->
+    <script src="https://cdn.tailwindcss.com/"></script>
+
+    <style type="text/tailwindcss">
+        button {
+            @apply bg-zinc-200 border-2 rounded-xl px-2 border-zinc-400 hover:bg-zinc-300;
+        }
+    </style>
+
+    <div class="p-2">
+        <div class="flex space-x-2 mb-2">
+            <button onclick="saveText()">Save</button>
+            <button onclick="loadText()">Load</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+
+        <form>
+            <textarea class="min-w-full min-h-[87%] font-mono outline-none bg-zinc-200 text-lg 
+            border-2 rounded-xl p-2 border-zinc-400 shadow-inset resize-none" spellcheck="false"
+            id="textEdit"></textarea>
+        </form>
+
+        <script>
+            function saveText() {
+                localStorage.setItem("textEditor.val", document.getElementById("textEdit").value);
+            }
+
+            function loadText() {
+                const data = localStorage.getItem("textEditor.val") ?? "";
+                document.getElementById("textEdit").value = data;
+            }
+
+            function reset() {
+                localStorage.setItem("textEditor.val", "");
+                document.getElementById("textEdit").value = "";
+            }
+        </script>
+    </div>
+</div>

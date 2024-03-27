@@ -1,0 +1,20 @@
+{
+  "name": "validOS",
+  "version": "1.0.0",
+  "description": "Basically nullOS revamp",
+  "main": "index.js",
+  "scripts": {
+    "valid": "node src/index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@titaniumnetwork-dev/ultraviolet": "^3.0.0",
+    "@tomphttp/bare-server-node": "^2.0.1",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "winbox": "^0.2.82"
+  }
+}

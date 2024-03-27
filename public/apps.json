@@ -1,0 +1,25 @@
+[
+    {
+        "name": "TestBrowser",
+        "icon": "chrome.svg",
+        "aurl": "./applications/testbrowser"
+    },
+
+    {
+        "name": "Settings",
+        "icon": "settings.png",
+        "aurl": "./applications/settings"
+    },
+
+    {
+        "name": "Wallpaper Switcher",
+        "icon": "wallpaper.png",
+        "aurl": "./applications/wallpaperswitcher"
+    },
+
+    {
+        "name": "Text Editor",
+        "icon": "text.jpg",
+        "aurl": "./applications/texteditor"
+    }
+]
