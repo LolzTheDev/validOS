@@ -67,37 +67,20 @@
 
         // Function to open apps
         function openApp(url, appName) {
-            if (appName === 'Wallpaper Switcher') {
-                // Open the wallpaper switcher
-                const win = new WinBox({
-                    title: appName,
-                    url: url,
-                    width: '80%',
-                    height: '80%',
-                    border: '0.1em',
-                    minheight: 250,
-                    minwidth: 250,
-                    background: "#363636"
-                });
-
-                // Optional: You can focus on the new window if desired
-                win.focus();
-            } else {
-                // Create a new WinBox window for other apps
-                const win = new WinBox({
-                    title: appName,
-                    url: url,
-                    width: '80%',
-                    height: '80%',
-                    border: '0.1em',
-                    minheight: 250,
-                    minwidth: 250,
-                    background: "#363636",
-                });
-
-                // Optional: You can focus on the new window if desired
-                win.focus();
-            }
+            // Create a new WinBox window for other apps
+            const win = new WinBox({
+                title: appName,
+                url: url,
+                width: '80%',
+                height: '80%',
+                border: '0.1em',
+                minheight: 250,
+                minwidth: 250,
+                background: "#363636",
+            });
+            
+            // Optional: You can focus on the new window if desired
+            win.focus();
         }
 
         // Function to handle drag start
