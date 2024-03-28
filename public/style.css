@@ -31,7 +31,9 @@ body {
     border-radius: 0;
 }
 
-.__box {
+.__box_dark {
+    background-color: rgba(36, 36, 36, 0.7);
+    color: white;
     margin-top: 10px;
     margin-right: 10px;
     padding: 10px;
@@ -47,6 +49,24 @@ body {
     vertical-align: middle;
 }
 
+.__box_light {
+    background-color: rgba(255, 255, 255, 0.65);
+    color: black;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    backdrop-filter: blur(6px);
+    border: solid 2px rgba(255, 255, 255, 0.65);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+}
+
 .topnav {
     position: fixed;
     display: flex;
@@ -54,9 +74,27 @@ body {
     right: 0;
 }
 
-#taskbar {
+.taskbar_dark {
     backdrop-filter: blur(10px); /* Blur to bg */
     border: solid 2px rgba(78, 78, 78, 0.65);
+    background-color: rgba(36, 36, 36, 0.7);
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: fit-content;
+    border-radius: 25px;
+    z-index: 998;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+}
+
+.taskbar_light {
+    backdrop-filter: blur(10px); /* Blur to bg */
+    border: solid 2px rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.65);
     padding: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -79,8 +117,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    /* transition: background-color 0.3s, opacity 0.3s; /* Added opacity transition */
-    margin: 0 7.5px; /* Add margin for space between apps */
+    margin: 0 7.5px;
     border: none;
 }
 

@@ -28,27 +28,26 @@
             </h1>
 
             <p class="text-lg text-white mt-2">Continuation of nullOS</p>
-            <p class="text-sm text-white">Version 1.1.1</p>
+            <p class="text-sm text-white">Version 1.1.3</p>
         </div>
     </div>
 
     <div class="topnav">
-        <div id="clock" class="__box text-center" onclick="toggleTimeMode()" style="cursor: pointer;">
+        <div id="clock" class="__box_dark text-center" onclick="toggleTimeMode()" style="cursor: pointer;">
             <span id="clock-data" class="text-center">...</span>
         </div>
 
-        <div class="__box text-white" id="battery_container">
+        <div class="__box_dark" id="battery_container">
             <span class="material-symbols-outlined text-base">battery_full</span>
             <span id="battery" class="text-base">...</span>
         </div>
 
-        <div class="__box text-black" id="wifi_container">
+        <div class="__box_dark" id="wifi_container">
             <span class="material-symbols-outlined text-base px-2" id="wifi">help</span>
         </div>
     </div>
 
-    <div id="taskbar" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
+    <div id="taskbar" class="taskbar_dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
     <script src="./assets/frameworks/winbox.bundle.min.js" async></script>
 
@@ -278,22 +277,25 @@
         function applyTheme() {
             const theme = localStorage.getItem("theme");
 
+            // TODO: clean up this disastrous shit
             if (theme === "light") {
-                document.getElementById("taskbar").style.backgroundColor = "#f3f4f6"; // Light theme background color
-                document.getElementById("wifi_container").style.backgroundColor = "#f3f4f6";
-                document.getElementById("clock").style.backgroundColor = "#f3f4f6";
-                document.getElementById("battery_container").style.backgroundColor = "#f3f4f6";
-                document.getElementById("battery_container").style.color = "#000000";
-                document.getElementById("wifi_container").style.color = "#000000";
-                document.getElementById("clock").style.color = "#000000";
+                document.getElementById("taskbar").classList.remove("taskbar_dark")
+                document.getElementById("taskbar").classList.add("taskbar_light") // Light theme background color
+                document.getElementById("wifi_container").classList.add("__box_light")
+                document.getElementById("wifi_container").classList.remove("__box_dark")
+                document.getElementById("clock").classList.add("__box_light")
+                document.getElementById("clock").classList.remove("__box_dark")
+                document.getElementById("battery_container").classList.add("__box_light")
+                document.getElementById("battery_container").classList.remove("__box_dark")
             } else {
-                document.getElementById("taskbar").style.backgroundColor = "rgba(36, 36, 36, 0.7)"; // Dark theme background color
-                document.getElementById("wifi_container").style.backgroundColor = "rgba(36, 36, 36, 0.7)"
-                document.getElementById("battery_container").style.backgroundColor = "rgba(36, 36, 36, 0.7)";
-                document.getElementById("clock").style.backgroundColor = "rgba(36, 36, 36, 0.7)";
-                document.getElementById("battery_container").style.color = "#ffffff";
-                document.getElementById("wifi_container").style.color = "#ffffff";
-                document.getElementById("clock").style.color = "#ffffff";
+                document.getElementById("taskbar").classList.remove("taskbar_light")
+                document.getElementById("taskbar").classList.add("taskbar_dark") // Light theme background color
+                document.getElementById("wifi_container").classList.add("__box_dark")
+                document.getElementById("wifi_container").classList.remove("__box_light")
+                document.getElementById("clock").classList.add("__box_dark")
+                document.getElementById("clock").classList.remove("__box_light")
+                document.getElementById("battery_container").classList.add("__box_dark")
+                document.getElementById("battery_container").classList.remove("__box_light")
             }
         }
 

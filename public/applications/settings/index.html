@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white">
 
+<body>
     <div class="p-3">
         <h1 class="text-2xl font-bold">Settings</h1>
     
@@ -21,20 +21,20 @@
             <p class="text-lg font-semibold">Clock</p>
     
             <form class="ml-4 my-2">
-                <input type="checkbox" id="settings.TimeMode" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <input type="checkbox" id="settings.TimeMode" class="rounded-full form-checkbox text-sky-500" />
                 <label for="settings.TimeMode" class="ml-2">Use Military Time</label>
             </form>
     
             <p class="text-lg font-semibold">UI Elements</p>
     
             <form class="ml-4 my-2">
-                <input type="checkbox" id="settings.Clock" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <input type="checkbox" id="settings.Clock" class="rounded-full form-checkbox text-sky-500" />
                 <label for="settings.Clock" class="ml-2">Show Clock</label> <br />
     
-                <input type="checkbox" id="settings.Battery" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <input type="checkbox" id="settings.Battery" class="rounded-full form-checkbox text-sky-500" />
                 <label for="settings.Battery" class="ml-2">Show Battery</label> <br />
     
-                <input type="checkbox" id="settings.Wifi" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <input type="checkbox" id="settings.Wifi" class="rounded-full form-checkbox text-sky-500" />
                 <label for="settings.Wifi" class="ml-2">Show Wifi</label> <br />
             </form>
     
@@ -58,7 +58,7 @@
     
         <hr class="my-4" />
 
-        <button onclick="submit()" id="save" class="bg-sky-500 hover:bg-sky-600 text-black font-bold px-4 py-2 rounded-md text-sm">
+        <button onclick="submit()" id="save" class="bg-sky-500 hover:bg-sky-600 text-black font-bold px-4 py-2 rounded-md text-sm text-white">
             Save Changes
         </button>
     
@@ -116,7 +116,7 @@
                 parent.updateUI();
 
                 localStorage.setItem("theme", ThemeInput.value);
-                applyTheme();
+                parent.applyTheme();
             }
 
             const ThemeInput = document.getElementById("theme");
@@ -124,23 +124,6 @@
             if (localStorage.getItem("theme")) {
                 ThemeInput.value = localStorage.getItem("theme");
             }
-
-
-            function applyTheme() {
-                const theme = localStorage.getItem("theme");
-
-                if (theme === "light") {
-                    document.body.classList.remove("bg-gray-900", "text-white");
-                    document.body.classList.add("bg-gray-100", "text-black");
-                    document.getElementById("save").style.color = "#000000";
-                } else {
-                    document.body.classList.remove("bg-gray-100", "text-gray-900");
-                    document.body.classList.add("bg-gray-900", "text-white");
-                    document.getElementById("save").style.color = "#ffffff";
-                }
-            }
-
-            applyTheme();
         </script>
     </div>
     
