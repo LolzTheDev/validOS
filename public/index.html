@@ -42,7 +42,7 @@
             <span id="battery" class="text-base">...</span>
         </div>
 
-        <div class="__box text-white" id="wifi_container">
+        <div class="__box text-black" id="wifi_container">
             <span class="material-symbols-outlined text-base px-2" id="wifi">help</span>
         </div>
     </div>
@@ -274,6 +274,30 @@
 
         window.addEventListener('online', () => document.getElementById("wifi").innerText = "wifi");
         window.addEventListener('offline', () => document.getElementById("wifi").innerText = "wifi_off");
+
+        function applyTheme() {
+            const theme = localStorage.getItem("theme");
+
+            if (theme === "light") {
+                document.getElementById("taskbar").style.backgroundColor = "#f3f4f6"; // Light theme background color
+                document.getElementById("wifi_container").style.backgroundColor = "#f3f4f6";
+                document.getElementById("clock").style.backgroundColor = "#f3f4f6";
+                document.getElementById("battery_container").style.backgroundColor = "#f3f4f6";
+                document.getElementById("battery_container").style.color = "#000000";
+                document.getElementById("wifi_container").style.color = "#000000";
+                document.getElementById("clock").style.color = "#000000";
+            } else {
+                document.getElementById("taskbar").style.backgroundColor = "rgba(36, 36, 36, 0.7)"; // Dark theme background color
+                document.getElementById("wifi_container").style.backgroundColor = "rgba(36, 36, 36, 0.7)"
+                document.getElementById("battery_container").style.backgroundColor = "rgba(36, 36, 36, 0.7)";
+                document.getElementById("clock").style.backgroundColor = "rgba(36, 36, 36, 0.7)";
+                document.getElementById("battery_container").style.color = "#ffffff";
+                document.getElementById("wifi_container").style.color = "#ffffff";
+                document.getElementById("clock").style.color = "#ffffff";
+            }
+        }
+
+        applyTheme(); // Apply theme on page load
     </script>
 </body>
 </html>
