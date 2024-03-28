@@ -37,13 +37,6 @@
                 <input type="checkbox" id="settings.Wifi" class="rounded-full form-checkbox text-sky-500" />
                 <label for="settings.Wifi" class="ml-2">Show Wifi</label> <br />
             </form>
-    
-            <p class="text-lg font-semibold">Color Scheme</p>
-        </div>
-    
-        <hr class="my-4" />
-    
-        <div class="ml-4">
 
             <p class="text-lg font-semibold">Color Scheme</p>
     
@@ -58,8 +51,12 @@
     
         <hr class="my-4" />
 
-        <button onclick="submit()" id="save" class="bg-sky-500 hover:bg-sky-600 text-black font-bold px-4 py-2 rounded-md text-sm text-white">
+        <button onclick="submit()" id="save" class="bg-sky-500 hover:bg-sky-600 font-bold px-4 py-2 rounded-md text-sm text-white">
             Save Changes
+        </button>
+
+        <button class="bg-rose-500 hover:bg-rose-600 font-bold px-4 py-2 rounded-md text-sm text-white" onclick="parent.location.reload()">
+            Restart Environment
         </button>
     
         <!-- todo: load setting values on app load -->

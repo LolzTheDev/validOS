@@ -28,7 +28,7 @@
             </h1>
 
             <p class="text-lg text-white mt-2">Continuation of nullOS</p>
-            <p class="text-sm text-white">Version 1.1.3</p>
+            <p class="text-sm text-white">Version 1.1.4</p>
         </div>
     </div>
 
@@ -300,6 +300,17 @@
         }
 
         applyTheme(); // Apply theme on page load
+
+        const win = new WinBox({
+            title: "What's New?",
+            url: "./intro.html",
+            width: '80%',
+            height: '80%',
+            border: '0.1em',
+            minheight: 350,
+            minwidth: 350,
+            background: "#363636"
+        });
     </script>
 </body>
 </html>
