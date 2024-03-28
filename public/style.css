@@ -23,18 +23,36 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-#clock {
+.winbox, .wb-body {
+    border-radius: 12px;
+}
+
+.winbox.max {
+    border-radius: 0;
+}
+
+.__box {
     margin-top: 10px;
     margin-right: 10px;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    top: 0;
-    right: 0;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-content: center;
     backdrop-filter: blur(6px);
     background-color: rgba(36, 36, 36, 0.7);
     border: solid 2px rgba(78, 78, 78, 0.65);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+}
+
+.topnav {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
 }
 
 #taskbar {

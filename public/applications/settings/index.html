@@ -7,9 +7,23 @@
     
     <div class="ml-4">
         <p class="text-lg font-semibold">Clock</p>
+
         <form class="ml-4 my-2">
             <input type="checkbox" id="settings.TimeMode" />
             <label>Use Military Time</label>
+        </form>
+
+        <p class="text-lg font-semibold">UI Elements</p>
+
+        <form class="ml-4 my-2">
+            <input type="checkbox" id="settings.Clock" />
+            <label>Show Clock</label> <br />
+
+            <input type="checkbox" id="settings.Battery" />
+            <label>Show Battery</label> <br />
+
+            <input type="checkbox" id="settings.Wifi" />
+            <label>Show Wifi</label> <br />
         </form>
 
         <p class="text-lg font-semibold">Color Scheme</p>
@@ -40,10 +54,24 @@
     <script>
         const TimeModeInput = document.getElementById("settings.TimeMode");
 
+        const ShowClockInput = document.getElementById("settings.Clock");
+        const ShowBatteryInput = document.getElementById("settings.Battery");
+        const ShowWifiInput = document.getElementById("settings.Wifi");
+
         if (localStorage.getItem("timeMode") == "military") {
             TimeModeInput.checked = true;
-        } else {
-            TimeModeInput.checked = false;
+        }
+
+        if (localStorage.getItem("showClock") == "true") {
+            ShowClockInput.checked = true;
+        }
+
+        if (localStorage.getItem("showBattery") == "true") {
+            ShowBatteryInput.checked = true;
+        }
+
+        if (localStorage.getItem("showWifi") == "true") {
+            ShowWifiInput.checked = true;
         }
 
         function submit() {
@@ -54,6 +82,26 @@
                 localStorage.setItem("timeMode", "standard");
                 parent.updateClock();
             }
+
+            if (ShowClockInput.checked) {
+                localStorage.setItem("showClock", "true");
+            } else {
+                localStorage.setItem("showClock", "false");
+            }
+
+            if (ShowBatteryInput.checked) {
+                localStorage.setItem("showBattery", "true");
+            } else {
+                localStorage.setItem("showBattery", "false");
+            }
+
+            if (ShowWifiInput.checked) {
+                localStorage.setItem("showWifi", "true");
+            } else {
+                localStorage.setItem("showWifi", "false");
+            }
+
+            parent.updateUI();
         }
     </script>
 </div>
