@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div id="taskbar" class="taskbar_dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div id="taskbar" class="taskbar_dark"></div>
 
     <script src="./assets/frameworks/winbox.bundle.min.js" async></script>
 
@@ -302,10 +302,11 @@
         applyTheme(); // Apply theme on page load
 
         const win = new WinBox({
-            title: "What's New?",
-            url: "./intro.html",
-            width: '80%',
-            height: '80%',
+            title: "Get Started",
+            modal: true,
+            url: "./getstarted.html",
+            width: '60%',
+            height: '50%',
             border: '0.1em',
             minheight: 350,
             minwidth: 350,

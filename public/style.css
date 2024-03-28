@@ -67,11 +67,19 @@ body {
     vertical-align: middle;
 }
 
+.modal {
+    z-index: 1000;
+}
+
 .topnav {
     position: fixed;
     display: flex;
     top: 0;
     right: 0;
+}
+
+#taskbar {
+    z-index: 998;
 }
 
 .taskbar_dark {
@@ -87,7 +95,6 @@ body {
     bottom: 0;
     width: fit-content;
     border-radius: 25px;
-    z-index: 998;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -104,7 +111,6 @@ body {
     bottom: 0;
     width: fit-content;
     border-radius: 25px;
-    z-index: 998; /* Lower z-index than the splash screen */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.45), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
 }
 
