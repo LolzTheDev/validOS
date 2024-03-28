@@ -1,107 +1,148 @@
-<div class="p-3">
-    <h1 class="text-2xl font-bold">Settings</h1>
+<!-- settings.html -->
 
-    <hr class="my-4" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
 
-    <h2 class="text-xl font-semibold mb-4">Desktop</h2>
+    <div class="p-3">
+        <h1 class="text-2xl font-bold">Settings</h1>
     
-    <div class="ml-4">
-        <p class="text-lg font-semibold">Clock</p>
+        <hr class="my-4" />
+    
+        <h2 class="text-xl font-semibold mb-4">Desktop</h2>
+        
+        <div class="ml-4">
+            <p class="text-lg font-semibold">Clock</p>
+    
+            <form class="ml-4 my-2">
+                <input type="checkbox" id="settings.TimeMode" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <label for="settings.TimeMode" class="ml-2">Use Military Time</label>
+            </form>
+    
+            <p class="text-lg font-semibold">UI Elements</p>
+    
+            <form class="ml-4 my-2">
+                <input type="checkbox" id="settings.Clock" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <label for="settings.Clock" class="ml-2">Show Clock</label> <br />
+    
+                <input type="checkbox" id="settings.Battery" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <label for="settings.Battery" class="ml-2">Show Battery</label> <br />
+    
+                <input type="checkbox" id="settings.Wifi" class="rounded-full form-checkbox h-5 w-5 text-sky-500" />
+                <label for="settings.Wifi" class="ml-2">Show Wifi</label> <br />
+            </form>
+    
+            <p class="text-lg font-semibold">Color Scheme</p>
+        </div>
+    
+        <hr class="my-4" />
+    
+        <div class="ml-4">
 
-        <form class="ml-4 my-2">
-            <input type="checkbox" id="settings.TimeMode" />
-            <label>Use Military Time</label>
-        </form>
+            <p class="text-lg font-semibold">Color Scheme</p>
+    
+            <form class="ml-4 my-2">
+                <label for="theme">Theme</label>
+                <select id="theme" class="bg-zinc-200 border-2 rounded-xl border-zinc-400 px-3 outline-none">
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                </select>
+            </form>
+        </div>
+    
+        <hr class="my-4" />
 
-        <p class="text-lg font-semibold">UI Elements</p>
+        <button onclick="submit()" id="save" class="bg-sky-500 hover:bg-sky-600 text-black font-bold px-4 py-2 rounded-md text-sm">
+            Save Changes
+        </button>
+    
+        <!-- todo: load setting values on app load -->
+        <script>
+            const TimeModeInput = document.getElementById("settings.TimeMode");
+    
+            const ShowClockInput = document.getElementById("settings.Clock");
+            const ShowBatteryInput = document.getElementById("settings.Battery");
+            const ShowWifiInput = document.getElementById("settings.Wifi");
+    
+            if (localStorage.getItem("timeMode") == "military") {
+                TimeModeInput.checked = true;
+            }
+    
+            if (localStorage.getItem("showClock") == "true") {
+                ShowClockInput.checked = true;
+            }
+    
+            if (localStorage.getItem("showBattery") == "true") {
+                ShowBatteryInput.checked = true;
+            }
+    
+            if (localStorage.getItem("showWifi") == "true") {
+                ShowWifiInput.checked = true;
+            }
+    
+            function submit() {
+                if (TimeModeInput.checked) {
+                    localStorage.setItem("timeMode", "military");
+                    parent.updateClock();
+                } else {
+                    localStorage.setItem("timeMode", "standard");
+                    parent.updateClock();
+                }
+    
+                if (ShowClockInput.checked) {
+                    localStorage.setItem("showClock", "true");
+                } else {
+                    localStorage.setItem("showClock", "false");
+                }
+    
+                if (ShowBatteryInput.checked) {
+                    localStorage.setItem("showBattery", "true");
+                } else {
+                    localStorage.setItem("showBattery", "false");
+                }
+    
+                if (ShowWifiInput.checked) {
+                    localStorage.setItem("showWifi", "true");
+                } else {
+                    localStorage.setItem("showWifi", "false");
+                }
+    
+                parent.updateUI();
 
-        <form class="ml-4 my-2">
-            <input type="checkbox" id="settings.Clock" />
-            <label>Show Clock</label> <br />
+                localStorage.setItem("theme", ThemeInput.value);
+                applyTheme();
+            }
 
-            <input type="checkbox" id="settings.Battery" />
-            <label>Show Battery</label> <br />
+            const ThemeInput = document.getElementById("theme");
 
-            <input type="checkbox" id="settings.Wifi" />
-            <label>Show Wifi</label> <br />
-        </form>
+            if (localStorage.getItem("theme")) {
+                ThemeInput.value = localStorage.getItem("theme");
+            }
 
-        <p class="text-lg font-semibold">Color Scheme</p>
 
-        <form class="ml-4 my-2">
-            <label>System UI</label> 
-            <span class="bg-sky-500 text-white rounded-xl py-1 px-2 font-bold text-sm">Coming Soon</span>
+            function applyTheme() {
+                const theme = localStorage.getItem("theme");
 
-            <!--
-            <select class="bg-zinc-200 border-2 rounded-xl border-zinc-400 px-3 outline-none">
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-            </select>
-            -->
-        </form>
+                if (theme === "light") {
+                    document.body.classList.remove("bg-gray-900", "text-white");
+                    document.body.classList.add("bg-gray-100", "text-black");
+                    document.getElementById("save").style.color = "#000000";
+                } else {
+                    document.body.classList.remove("bg-gray-100", "text-gray-900");
+                    document.body.classList.add("bg-gray-900", "text-white");
+                    document.getElementById("save").style.color = "#ffffff";
+                }
+            }
+
+            applyTheme();
+        </script>
     </div>
+    
 
-    <hr class="my-4" />
-
-    <button onclick="submit()" class="bg-sky-500 hover:bg-sky-600
-    text-white font-bold px-2 py-1 rounded-md text-sm">
-        Save Changes
-    </button>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- todo: load setting values on app load -->
-    <script>
-        const TimeModeInput = document.getElementById("settings.TimeMode");
-
-        const ShowClockInput = document.getElementById("settings.Clock");
-        const ShowBatteryInput = document.getElementById("settings.Battery");
-        const ShowWifiInput = document.getElementById("settings.Wifi");
-
-        if (localStorage.getItem("timeMode") == "military") {
-            TimeModeInput.checked = true;
-        }
-
-        if (localStorage.getItem("showClock") == "true") {
-            ShowClockInput.checked = true;
-        }
-
-        if (localStorage.getItem("showBattery") == "true") {
-            ShowBatteryInput.checked = true;
-        }
-
-        if (localStorage.getItem("showWifi") == "true") {
-            ShowWifiInput.checked = true;
-        }
-
-        function submit() {
-            if (TimeModeInput.checked) {
-                localStorage.setItem("timeMode", "military");
-                parent.updateClock();
-            } else {
-                localStorage.setItem("timeMode", "standard");
-                parent.updateClock();
-            }
-
-            if (ShowClockInput.checked) {
-                localStorage.setItem("showClock", "true");
-            } else {
-                localStorage.setItem("showClock", "false");
-            }
-
-            if (ShowBatteryInput.checked) {
-                localStorage.setItem("showBattery", "true");
-            } else {
-                localStorage.setItem("showBattery", "false");
-            }
-
-            if (ShowWifiInput.checked) {
-                localStorage.setItem("showWifi", "true");
-            } else {
-                localStorage.setItem("showWifi", "false");
-            }
-
-            parent.updateUI();
-        }
-    </script>
-</div>
+</body>
