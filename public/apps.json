@@ -6,6 +6,12 @@
     },
 
     {
+        "name": "Help",
+        "icon": "help.webp",
+        "aurl": "./applications/help"
+    },
+
+    {
         "name": "Settings",
         "icon": "settings.png",
         "aurl": "./applications/settings"
