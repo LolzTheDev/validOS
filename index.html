@@ -63,10 +63,16 @@
                 node.classList.add("app-icon")
                 node.onclick = () => { openApp(app.aurl, app.name) };
 
-                node.innerHTML = `
-                    <img src="./assets/images/${app.icon}" alt="${app.name}" class="_app">
-                    <span class="app-name">${app.name}</span>
-                `;
+                const img = document.createElement('img')
+                img.setAttribute('src', `./assets/images/${app.icon}`)
+                img.setAttribute('alt', app.name)
+                img.classList.add('_app')
+                node.appendChild(img)
+
+                const span = document.createElement('span')
+                span.classList.add('app-name')
+                span.innerText = app.name
+                node.appendChild(span)
 
                 tb.appendChild(node);
             })
