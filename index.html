@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validOS</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preload" href="./assets/frameworks/winbox.bundle.min.js" as="script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- used for preprocessing css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style type="text/tailwindcss">
+        ._app {
+            @apply hover:scale-125 duration-100 rounded-full top-0 transition-transform 
+            transform hover:-translate-y-1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1 class="rounded-xl px-4 py-2 text-6xl font-bold text-white bg-gradient-to-tr from-10% from-sky-500 to-emerald-500 
+            text-transparent">
+                validOS
+            </h1>
+
+            <p class="text-lg text-white mt-2">Continuation of nullOS</p>
+            <p class="text-sm text-white">Version 1.1.4</p>
+        </div>
+    </div>
+
+    <div class="topnav">
+        <div id="clock" class="__box_dark text-center duration-500" onclick="toggleTimeMode()" style="cursor: pointer;">
+            <span id="clock-data" class="text-center">...</span>
+        </div>
+
+        <div class="__box_dark duration-500" id="battery_container">
+            <span class="material-symbols-outlined text-base">battery_full</span>
+            <span id="battery" class="text-base">...</span>
+        </div>
+
+        <div class="__box_dark duration-500" id="wifi_container">
+            <span class="material-symbols-outlined text-base px-2" id="wifi">help</span>
+        </div>
+    </div>
+
+    <div id="taskbar" class="taskbar_dark duration-500"></div>
+
+    <script src="./assets/frameworks/winbox.bundle.min.js" async></script>
+
+    <script>
+        async function drawTaskbar() {
+            const res = await fetch("./apps.json");
+            const apps = await res.json();
+
+            apps.map((app) => {
+                const tb = document.getElementById("taskbar");
+                const node = document.createElement("div");
+
+                node.classList.add("app-icon")
+                node.onclick = () => { openApp(app.aurl, app.name) };
+
+                node.innerHTML = `
+                    <img src="./assets/images/${app.icon}" alt="${app.name}" class="_app">
+                    <span class="app-name">${app.name}</span>
+                `;
+
+                tb.appendChild(node);
+            })
+        }
+
+        (async () => {
+            await drawTaskbar();
+        })();
+
+        // Function to open apps
+        function openApp(url, appName) {
+            // Create a new WinBox window for other apps
+            const win = new WinBox({
+                title: appName,
+                url: url,
+                width: '80%',
+                height: '80%',
+                border: '0.1em',
+                minheight: 350,
+                minwidth: 350,
+                background: "#363636"
+            });
+
+            // Optional: You can focus on the new window if desired
+            win.focus();
+        }
+
+        // Function to handle drag start
+        function drag(event) {
+            event.dataTransfer.setData('text/plain', event.target.id);
+        }
+
+        // Function to handle drag over and drop
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // Function to handle drop
+        function drop(event) {
+            event.preventDefault();
+            const draggedAppId = event.dataTransfer.getData('text/plain');
+            const draggedApp = document.getElementById(draggedAppId);
+            const taskbar = document.getElementById('taskbar');
+
+            // Insert the dragged element before the drop target
+            taskbar.insertBefore(draggedApp, event.target);
+
+            // Update the order and save to localStorage
+            updateOrder();
+        }
+
+        // Function to get the order of icons from localStorage
+        function getOrder() {
+            const order = localStorage.getItem('appOrder');
+            return order ? JSON.parse(order) : [];
+        }
+
+        // Function to set the order of icons in localStorage
+        function setOrder(order) {
+            localStorage.setItem('appOrder', JSON.stringify(order));
+        }
+
+        // Function to update the order of icons
+        function updateOrder() {
+            const appOrder = Array.from(document.querySelectorAll('.app-icon')).map(icon => icon.id);
+            setOrder(appOrder);
+        }
+
+        // Set initial order or load from localStorage
+        const appOrder = getOrder();
+
+        // Set the order of icons
+        function setIconOrder() {
+            appOrder.forEach((appId, index) => {
+                const appIcon = document.getElementById(appId);
+                if (appIcon) {
+                    appIcon.style.order = index;
+                }
+            });
+        }
+
+        // Set the initial order
+        setIconOrder();
+
+        // Function to load customCSS from localStorage and set it as background
+        function loadCustomCSS() {
+            const customCSS = localStorage.getItem('customCSS');
+
+            if (customCSS) {
+                document.body.style.backgroundImage = customCSS;
+            } else {
+                document.body.style.backgroundImage = "./assets/wallpaper/Bluesdark.png";
+            }
+        }
+
+        // Load customCSS on page load
+        loadCustomCSS();
+
+        // Add a class to the body to make it unclickable during the loading period
+        document.body.classList.add('unclickable');
+
+        // Simulate a loading time and hide the splash screen after 2 seconds (adjust as needed)
+        setTimeout(function () {
+            const splashScreen = document.getElementById('splash-screen');
+            splashScreen.style.transition = "opacity 1s ease-in-out";
+            splashScreen.style.opacity = 0;
+
+            // TODO: make this better or something
+            setTimeout(function () {
+                document.getElementById("splash-screen").style.display = 'none';
+            }, 1000)
+            
+            // Remove the unclickable class to make the body clickable again
+            document.body.classList.remove('unclickable');
+        }, 2500); // 5000 milliseconds = 5 seconds
+
+        function updateClock() {
+            // Thanks https://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format
+
+            const clock = document.getElementById('clock-data');
+            const date = new Date();
+
+            let strTime;
+            
+            if (localStorage.getItem("timeMode") === "standard") {
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                strTime = hours + ':' + minutes + ' ' + ampm;
+
+                clock.innerText = strTime;
+                clock.title = "Standard Time"
+                return
+            }
+
+            const hrs = date.getHours().toString().padStart(2, '0');
+            const mins = date.getMinutes().toString().padStart(2, '0');
+            strTime = `${hrs}:${mins}`;
+
+            clock.innerText = strTime;
+            clock.title = "Military Time"
+        }
+
+        function toggleTimeMode() {
+            if (localStorage.getItem("timeMode") === "standard") {
+                localStorage.setItem("timeMode", "military");
+                updateClock();
+            } else {
+                localStorage.setItem("timeMode", "standard");
+                updateClock();
+            }
+        }
+
+        function updateUI() {
+            const clockShown = localStorage.getItem("showClock")
+            const batteryShown = localStorage.getItem("showBattery")
+            const wifiShown = localStorage.getItem("showWifi")
+
+            if (clockShown == "true") {
+                document.getElementById("clock").style.display = "flex"
+            } else {
+                document.getElementById("clock").style.display = "none"
+            }
+
+            if (batteryShown == "true") {
+                document.getElementById("battery_container").style.display = "flex"
+            } else {
+                document.getElementById("battery_container").style.display = "none"
+            }
+
+            if (wifiShown == "true") {
+                document.getElementById("wifi_container").style.display = "flex"
+            } else {
+                document.getElementById("wifi_container").style.display = "none"
+            }
+        }
+
+        updateUI();
+
+        if (!localStorage.getItem("timeMode")) {
+            localStorage.setItem("timeMode", "standard");
+        }
+
+        setInterval(updateClock, 60000);
+
+        updateClock();
+
+        navigator.getBattery().then((battery) => {
+            battery.addEventListener('levelchange', () => {
+                document.getElementById("battery").innerText = `${Math.floor(battery.level * 100)}%`
+            })
+
+            document.getElementById("battery").innerText = `${Math.floor(battery.level * 100)}%`
+        })
+
+        if (window.navigator.onLine) {
+            document.getElementById("wifi").innerText = "wifi"
+        } else {
+            document.getElementById("wifi").innerText = "wifi_off"
+        }
+
+        window.addEventListener('online', () => document.getElementById("wifi").innerText = "wifi");
+        window.addEventListener('offline', () => document.getElementById("wifi").innerText = "wifi_off");
+
+        function applyTheme() {
+            const theme = localStorage.getItem("theme");
+
+            // TODO: clean up this disastrous shit
+            if (theme === "light") {
+                document.getElementById("taskbar").classList.remove("taskbar_dark")
+                document.getElementById("taskbar").classList.add("taskbar_light") // Light theme background color
+                document.getElementById("wifi_container").classList.add("__box_light")
+                document.getElementById("wifi_container").classList.remove("__box_dark")
+                document.getElementById("clock").classList.add("__box_light")
+                document.getElementById("clock").classList.remove("__box_dark")
+                document.getElementById("battery_container").classList.add("__box_light")
+                document.getElementById("battery_container").classList.remove("__box_dark")
+            } else {
+                document.getElementById("taskbar").classList.remove("taskbar_light")
+                document.getElementById("taskbar").classList.add("taskbar_dark") // Light theme background color
+                document.getElementById("wifi_container").classList.add("__box_dark")
+                document.getElementById("wifi_container").classList.remove("__box_light")
+                document.getElementById("clock").classList.add("__box_dark")
+                document.getElementById("clock").classList.remove("__box_light")
+                document.getElementById("battery_container").classList.add("__box_dark")
+                document.getElementById("battery_container").classList.remove("__box_light")
+            }
+        }
+
+        applyTheme(); // Apply theme on page load
+
+        const win = new WinBox({
+            title: "Get Started",
+            modal: true,
+            url: "./getstarted.html",
+            width: '60%',
+            height: '60%',
+            border: '0.1em',
+            minheight: 350,
+            minwidth: 350,
+            background: "#363636"
+        });
+    </script>
+</body>
+</html>
