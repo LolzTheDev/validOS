@@ -357,21 +357,23 @@
             }
         }
 
-        function showContextMenu(event) {
+        async function showContextMenu(event) {
             event.preventDefault();
 
             var menu = document.getElementById("ctxmenu");
+
+            await drawCtxMenu();
 
             menu.style.display = "block";
             menu.style.left = event.clientX + "px";
             menu.style.top = event.clientY + "px";
         }
 
-        document.addEventListener("contextmenu", function(event) {
-            showContextMenu(event);
+        document.addEventListener("contextmenu", async (event) => {
+            await showContextMenu(event);
         });
 
-        document.addEventListener("click", function(event) {
+        document.addEventListener("click", (event) => {
             var menu = document.getElementById("ctxmenu");
 
             if (event.target != menu) {
