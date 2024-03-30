@@ -151,7 +151,7 @@
             // Optional: You can focus on the new window if desired
             win.focus();
         }
-        
+
         // set wallpaper
         function loadCustomCSS() {
             const customCSS = localStorage.getItem('customCSS');
@@ -300,8 +300,6 @@
             event.preventDefault();
 
             var menu = document.getElementById("ctxmenu");
-
-            await drawCtxMenu();
 
             menu.style.display = "block";
             menu.style.left = event.clientX + "px";
