@@ -2,25 +2,29 @@
     {
         "name": "TestBrowser",
         "icon": "chrome.svg",
-        "aurl": "./applications/testbrowser"
+        "aurl": "./applications/testbrowser",
+        "quick": false
     },
 
     {
         "name": "Help",
         "icon": "help.webp",
-        "aurl": "./applications/help"
+        "aurl": "./applications/help",
+        "quick": true
     },
 
     {
         "name": "Settings",
         "icon": "settings.png",
-        "aurl": "./applications/settings"
+        "aurl": "./applications/settings",
+        "quick": true
     },
 
     {
         "name": "Wallpaper Switcher",
         "icon": "wallpaper.png",
-        "aurl": "./applications/wallpaperswitcher"
+        "aurl": "./applications/wallpaperswitcher",
+        "quick": true
     },
 
     {

@@ -32,6 +32,10 @@
         </div>
     </div>
 
+    <div id="ctxmenu" class="__box_dark w-64" style="display: none; position: absolute; text-align: left;">
+        <p class="text-2xl font-bold">Quick Menu</p>
+    </div>
+
     <div class="topnav">
         <div id="clock" class="__box_dark text-center duration-500" onclick="toggleTimeMode()" style="cursor: pointer;">
             <span id="clock-data" class="text-center">...</span>
@@ -78,8 +82,56 @@
             })
         }
 
+        async function drawCtxMenu() {
+            const res = await fetch("./apps.json");
+            const apps = await res.json();
+
+            apps.map((app) => {
+                const quickApp = app.quick ?? null;
+                if (!quickApp) return;
+
+                const menu = document.getElementById("ctxmenu");
+                const node = document.createElement("div");
+
+                const img = document.createElement("img");
+                img.src = `./assets/images/${app.icon}`;
+                img.classList.add("size-8");
+                img.classList.add("rounded-full");
+                img.classList.add("inline");
+                img.classList.add("mr-4");
+
+                const text = document.createElement("span");
+                text.innerText = app.name;
+
+                node.style.cursor = "pointer";
+
+                node.classList.add("my-2");
+                node.classList.add("hover:bg-gray-400");
+                node.classList.add("duration-200");
+                node.classList.add("p-1");
+                node.classList.add("rounded-md");
+                node.classList.add("align-middle");
+            
+                node.onclick = () => { openApp(app.aurl, app.name) };
+
+                node.appendChild(img);
+                node.appendChild(text);
+
+                menu.appendChild(node);
+
+                node.addEventListener("mouseover", function() {
+                    node.style.backgroundColor = "rgba(78, 78, 78, 0.5)";
+                });
+
+                node.addEventListener("mouseout", function() {
+                    node.style.backgroundColor = "rgba(78, 78, 78, 0)";
+                });
+            })
+        }
+
         (async () => {
             await drawTaskbar();
+            await drawCtxMenu();
         })();
 
         // Function to open apps
@@ -304,6 +356,28 @@
                 document.getElementById("battery_container").classList.remove("__box_light")
             }
         }
+
+        function showContextMenu(event) {
+            event.preventDefault();
+
+            var menu = document.getElementById("ctxmenu");
+
+            menu.style.display = "block";
+            menu.style.left = event.clientX + "px";
+            menu.style.top = event.clientY + "px";
+        }
+
+        document.addEventListener("contextmenu", function(event) {
+            showContextMenu(event);
+        });
+
+        document.addEventListener("click", function(event) {
+            var menu = document.getElementById("ctxmenu");
+
+            if (event.target != menu) {
+                menu.style.display = "none";
+            }
+        });
 
         applyTheme(); // Apply theme on page load
 
