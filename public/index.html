@@ -151,65 +151,8 @@
             // Optional: You can focus on the new window if desired
             win.focus();
         }
-
-        // Function to handle drag start
-        function drag(event) {
-            event.dataTransfer.setData('text/plain', event.target.id);
-        }
-
-        // Function to handle drag over and drop
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        // Function to handle drop
-        function drop(event) {
-            event.preventDefault();
-            const draggedAppId = event.dataTransfer.getData('text/plain');
-            const draggedApp = document.getElementById(draggedAppId);
-            const taskbar = document.getElementById('taskbar');
-
-            // Insert the dragged element before the drop target
-            taskbar.insertBefore(draggedApp, event.target);
-
-            // Update the order and save to localStorage
-            updateOrder();
-        }
-
-        // Function to get the order of icons from localStorage
-        function getOrder() {
-            const order = localStorage.getItem('appOrder');
-            return order ? JSON.parse(order) : [];
-        }
-
-        // Function to set the order of icons in localStorage
-        function setOrder(order) {
-            localStorage.setItem('appOrder', JSON.stringify(order));
-        }
-
-        // Function to update the order of icons
-        function updateOrder() {
-            const appOrder = Array.from(document.querySelectorAll('.app-icon')).map(icon => icon.id);
-            setOrder(appOrder);
-        }
-
-        // Set initial order or load from localStorage
-        const appOrder = getOrder();
-
-        // Set the order of icons
-        function setIconOrder() {
-            appOrder.forEach((appId, index) => {
-                const appIcon = document.getElementById(appId);
-                if (appIcon) {
-                    appIcon.style.order = index;
-                }
-            });
-        }
-
-        // Set the initial order
-        setIconOrder();
-
-        // Function to load customCSS from localStorage and set it as background
+        
+        // set wallpaper
         function loadCustomCSS() {
             const customCSS = localStorage.getItem('customCSS');
 
@@ -220,13 +163,10 @@
             }
         }
 
-        // Load customCSS on page load
         loadCustomCSS();
 
-        // Add a class to the body to make it unclickable during the loading period
         document.body.classList.add('unclickable');
 
-        // Simulate a loading time and hide the splash screen after 2 seconds (adjust as needed)
         setTimeout(function () {
             const splashScreen = document.getElementById('splash-screen');
             splashScreen.style.transition = "opacity 1s ease-in-out";
@@ -237,9 +177,8 @@
                 document.getElementById("splash-screen").style.display = 'none';
             }, 1000)
             
-            // Remove the unclickable class to make the body clickable again
             document.body.classList.remove('unclickable');
-        }, 2500); // 5000 milliseconds = 5 seconds
+        }, 2500); 
 
         function updateClock() {
             // Thanks https://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format
