@@ -1,14 +1,70 @@
-<div class="p-3">
-    <script src="https://cdn.tailwindcss.com"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 150px;
+        }
 
-    <style type="text/tailwindcss">
-        p {
-            @apply my-4;
+        #icon {
+            margin-top: 50px;
+            transform: scale(4);
+        }
+
+        #icon svg {
+            transform: scale(4);
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #valid {
+            font-size: 50px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .right-content {
+            text-align: center;
         }
     </style>
+</head>
+<body>
 
+<div class="container">
     <div>
-        <h1 class="text-2xl font-semibold">Welcome!</h1>
+        <svg id="icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+            <path d="m352.462-85.386-71.384-120.308-135.538-29.692 13.231-139.538L66.925-480l91.846-105.076-13.231-139.538 135.538-29.692 71.384-120.308L480-820.46l127.538-54.154 71.384 120.308 135.538 29.692-13.231 139.538L893.075-480l-91.846 105.076 13.231 139.538-135.538 29.692-71.384 120.307L480-139.54 352.462-85.387ZM378-162l102-43.231L583.231-162 640-258l110-25.231L740-396l74-84-74-85.231L750-678l-110-24-58-96-102 43.231L376.769-798 320-702l-110 24 10 112.769L146-480l74 84-10 114 110 24 58 96Zm102-318Zm-42 128.153L650.153-564 608-607.384l-170 170-86-84.769L309.847-480 438-351.847Z"/>
+        </svg>
+        <h1 id="valid">validOS</h1>
+    </div>
+    <div class="right-content">
+        <h1>Welcome!</h2>
         <p>Lets walk you through the setup!</p>
+        <button class="button">Get Started!</button>
     </div>
 </div>
+
+</body>
+</html>
