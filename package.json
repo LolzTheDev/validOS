@@ -4,8 +4,8 @@
   "description": "Basically nullOS revamp",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch ./index.ts",
-    "valid": "tsx ./index.ts"
+    "dev": "tsx watch ./index.js",
+    "valid": "tsx ./index.js"
   },
   "type": "module",
   "keywords": [],
