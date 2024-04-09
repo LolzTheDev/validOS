@@ -6,7 +6,7 @@ ValidOS (or validOS) is a webOS that's built off of anshnk/nullOS. nullOS was dr
 
 Instances:
 
--   https://valid.zirc.lol/
+-   https://os.zirc.lol/
 
 (Wanna get your instance added? Make a PR with your link!)
 
